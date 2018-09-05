@@ -1,0 +1,2 @@
+{"legajo":"999","nombre":"nico","apellido":"rodri"}
+{"legajo":"222","nombre":"jose","apellido":"perez"}

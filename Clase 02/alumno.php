@@ -36,6 +36,17 @@ class alumno extends persona implements imaterias {
 
     */
     
+    function __tostring(){
+        return $this->alumno.$this->apellido.$this->legajo;
+    }
+
+    function __tojson(){ //paso un objeto alumno a un string con el formato de json
+         return $lista = json_encode($this);
+        
+        //$json = json_decode($lista);
+        //return $json;
+        
+    }
 
 }
 
