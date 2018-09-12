@@ -1,0 +1,2 @@
+{"nombre":"Juan Jose","codBarra":"123456"}
+{"nombre":"Rodrigo","codBarra":"111111"}

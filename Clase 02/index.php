@@ -6,6 +6,9 @@
     if(isset($_GET['nombre'])){
 
     
+        //      POST ES EL UNICO QUE HAY QUE PASARLE PARAMETROS POR BODY
+
+
     //var_dump($_GET); //ese GET es un array
     /*
     if(isset($_GET['nombre'])){  //este metodo devuelve un booleano, para saber si la clave existe o no
