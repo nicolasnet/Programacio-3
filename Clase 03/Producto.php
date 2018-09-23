@@ -15,7 +15,7 @@ class Producto{
     }
 
 
-    function __tojson(){ //paso un objeto alumno a un string con el formato de json
+    function __tojson(){ //paso un objeto producto a un string con el formato de json
         return $lista = json_encode($this);
     
     //$json = json_decode($lista);

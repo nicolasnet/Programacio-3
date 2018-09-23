@@ -1,7 +1,0 @@
-{"nombre":"Juan","codBarra":"123456"}
-{"nombre":"Alberto","codBarra":"999999"}
-{"nombre":"Alberto","codBarra":"999999"}
-{"nombre":"Juan","codBarra":"123456"}
-{"nombre":"Juan","codBarra":"123456"}
-{"nombre":"Juan","codBarra":"123456"}
-{"nombre":"Juan","codBarra":"123456"}
