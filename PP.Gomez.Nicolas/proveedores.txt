@@ -1,0 +1,4 @@
+{"id":"123","nombre":"herramientas SA","email":"bulones@gmail.com","foto":{"name":"fotoDos.png","type":"image\/png","tmp_name":"C:\\xampp\\tmp\\phpC3D0.tmp","error":0,"size":19409}}
+{"id":"666","nombre":"jaja","email":"bulones@gmail.com","foto":{"name":"fotoDos.png","type":"image\/png","tmp_name":"C:\\xampp\\tmp\\php2ED8.tmp","error":0,"size":19409}}
+{"id":"999","nombre":"Empresa SA","email":"empresa@gmail.com","foto":{"name":"fotoDos.png","type":"image\/png","tmp_name":"C:\\xampp\\tmp\\php9D1E.tmp","error":0,"size":19409}}
+{"id":"1","nombre":"Empresa SA","email":"empresa@gmail.com","foto":{"name":"fotoDos.png","type":"image\/png","tmp_name":"C:\\xampp\\tmp\\php7FEF.tmp","error":0,"size":19409}}
