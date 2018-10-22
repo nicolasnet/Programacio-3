@@ -27,10 +27,12 @@ class Pedido{
 
 
 
+
+
     function hacerPedido($archivoProv, $archivoPedidos){
-        
-        if($archivoProv->existeProv($archivoProv->arrayToJason($archivoProv->abrir()), "id" ,$this->id)){//si el id existe, no lo agrega al TXT.
-            
+
+        if($archivoProv->existeProv($archivoProv->arrayToJason($archivoProv->abrir()), "id" ,$this->id)){//si el id existe, lo agrega al TXT.
+
             $archivoPedidos->guardar(json_encode($this));
             return "nuevo pedido guardado";
         }
@@ -39,16 +41,34 @@ class Pedido{
         }
     }
 
+
     function listarPedidos($archivoProv, $archivoPedidos){
         $arrayPedidos = $archivoPedidos-> arrayToJason($archivoPedidos->abrir());
         $arrayProv = $archivoProv-> arrayToJason($archivoProv->abrir());
 
-        foreach ($arrayPedidos as $key) {
-            echo $key->producto."-".$key->cantidad."-".$key->id;
+        foreach ($arrayPedidos as $keyPedido) {
+            echo "Prod: ".$keyPedido->producto." Cant: ".$keyPedido->cantidad." Id Prov: ".$keyPedido->id;
+            foreach($arrayProv as $keyProv){
+                if($keyProv->id == $keyPedido->id){
+                    echo " Proveedor: ".$keyProv->nombre;
+                    break;
+                }
+            }
+            echo "\n";
         }
+    }
 
+    function listarPedidoProveedor($archivoPedidos, $idProveedor){
+        $arrayPedidos = $archivoPedidos-> arrayToJason($archivoPedidos->abrir());
+        foreach ($arrayPedidos as $keyPedido) {
+            if($keyPedido->id == $idProveedor){
+                echo "Prod: ".$keyPedido->producto." Cant: ".$keyPedido->cantidad." Id Prov: ".$keyPedido->id;            
+                echo "\n";
+            }
+        }
     }
 
 
+    
 }
 ?>

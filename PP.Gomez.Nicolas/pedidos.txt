@@ -1,2 +1,0 @@
-{"producto":"reloj","cantidad":"100","id":"123"}
-{"producto":"reloj","cantidad":"100","id":"123"}

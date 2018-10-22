@@ -29,18 +29,17 @@ class Proveedor{
 
 
 
+
     function cargarProveedor($archivo, $proveedor){
-        if(!$archivo->existeJson($archivo->arrayToJason($archivo->abrir()),json_decode($proveedor->__tojson()), "id")){//si el id existe, no lo agrega al TXT.
+        if(!$archivo->existeJson($archivo->arrayToJason($archivo->abrir()),  json_decode($proveedor->__tojson()),   "id")){//si el id existe, no lo agrega al TXT.
             $archivo->guardar(json_encode($proveedor));
+            
+            $array = explode(".", $_FILES["foto"]["name"]);//traigo todo el nombre de la imagen(incluye la extencion)            
+            //hay que tener cuidado si el nombre del archivo tiene mas de un punto, en ese caso generaria mas de 2 string en el array        
+            $imagen = "./fotos/".$proveedor.".".end($array);
+            move_uploaded_file($_FILES["foto"]["tmp_name"], $imagen);
 
-            $array = explode(".", $_FILES["foto"]["name"]);//traigo todo el nombre de la imagen(incluye la extencion)
-            
-                //hay que tener cuidado si el nombre del archivo tiene mas de un punto, en ese caso generaria mas de 2 string en el array
-            
-                $imagen = "./fotos/".$proveedor.".".end($array);
-                move_uploaded_file($_FILES["foto"]["tmp_name"], $imagen);
             return "nuevo proveedor guardado";
-
         }
         else{
             return "ID Repetido";
@@ -50,25 +49,75 @@ class Proveedor{
 
 
     function consultarProveedor($archivo, $proveedor){
-        $ocurrencias = $archivo->existeJsonNombresIguales($archivo->arrayToJason($archivo->abrir()),json_decode($proveedor->__tojson()), "nombre");
+        $ocurrencias = $archivo->existeJsonNombresIguales($archivo->arrayToJason($archivo->abrir()),  json_decode($proveedor->__tojson()),   "nombre");
         
         if($ocurrencias==0){
-                return "No existe proveedor: ".$proveedor->nombre;
+            return "No existe proveedor: ".$proveedor->nombre;
         }else{
-            return $ocurrencias;
+            return "El proveedor '".$proveedor->nombre."', esta repetido ".$ocurrencias." veces.";
         }
     }
 
-
+    
+    //Con esta funcion imprimo cada dato del JSON
     function proveedores($archivo){
         $array = $archivo->abrir();
 
         foreach ($array as $key) {
-            echo $key;
-            echo "\n";
+            if($key != NULL){
+                $objetoJson = json_decode($key);
+                echo $objetoJson->id;
+                echo "\t";
+                echo $objetoJson->nombre;
+                echo "\t";
+                echo $objetoJson->email;
+                echo "\n";
+            }
         }
-
     }
+    
 
+    /*
+    //Con esta funcion imprimo el string de Json
+    function proveedores($archivo){
+        $array = $archivo->abrir();
+
+        foreach ($array as $key) {
+            if($key != NULL){
+                echo $key;
+                echo "\n";
+            }    
+        }
+    }
+    */
+
+
+
+
+    function modificarProveedor($archivo, $newProv){
+        
+        $newJson = json_decode($newProv->__tojson());
+        if($archivo->existeJson($archivo->arrayToJason($archivo->abrir()),  $newJson,   "id")){
+            $jsonAnterior = $archivo->getJson($archivo->arrayToJason($archivo->abrir()),  $newJson,   "id");
+            $provAnterior = new Proveedor($jsonAnterior->id, $jsonAnterior->nombre, $jsonAnterior->email, $jsonAnterior->foto);
+            
+            $array = explode(".", $provAnterior->foto->name);            
+            $imagenAnterior = "./fotos/".$provAnterior.".".end($array);
+            $enBackup = "./backUpFotos/".$provAnterior->id."_".date("Y"). date("m").date("d").".".end($array);
+            rename($imagenAnterior, $enBackup);
+
+            $arrayNuevo = explode(".", $_FILES["foto"]["name"]);
+            $imagen = "./fotos/".$newProv.".".end($arrayNuevo);
+            move_uploaded_file($_FILES["foto"]["tmp_name"], $imagen);
+
+
+            $archivo->modificar($newJson, "id");
+            
+            return "Proveedor encontrado.";
+        }else{
+            return "El proveedor no existe";
+        }
+        
+    }
 }
 ?>

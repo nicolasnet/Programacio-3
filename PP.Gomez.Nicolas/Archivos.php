@@ -25,7 +25,7 @@ class Archivos{
         if(file_exists($this->ruta)){ 
 
             $archivo = fopen($this->ruta, "r+");
-            $string = "";
+            //$string = "";
 
             while(!feof($archivo)){
                 $array[] = trim(fgets($archivo));
@@ -41,13 +41,36 @@ class Archivos{
     }
 
 
+    function modificar($newObjetoJson, $parametroCompara){
+        $arrayObjetoJson = $this->arrayToJason($this->abrir());
+
+        foreach ($arrayObjetoJson as $key => $value) {
+            if($value->$parametroCompara == $newObjetoJson->$parametroCompara){
+                $arrayObjetoJson[$key] = $newObjetoJson;
+                break;
+            }        
+        }
+        $archivo = fopen($this->ruta, "w");
+
+        foreach ($arrayObjetoJson as $key => $value) {
+            $datos = json_encode($value);
+
+            fwrite ($archivo, $datos.PHP_EOL);
+        }
+
+        fclose($archivo);
+    }
+
+
+
+
     
-    function existeJson($arrayJson, $json, $parametro){
+    function existeJson($arrayObjetoJson, $objetoJson, $parametro){
         
         $boolExiste = false;
         
-        foreach ($arrayJson as $key => $value) {
-            if($value->$parametro == $json->$parametro){
+        foreach ($arrayObjetoJson as $key => $value) {
+            if($value->$parametro == $objetoJson->$parametro){
                 $boolExiste = true;
                 break;
             }
@@ -56,13 +79,24 @@ class Archivos{
     }
 
 
+    function getJson($arrayObjetoJson, $objetoJson, $parametro){
+        foreach ($arrayObjetoJson as $key => $value) {
+            if($value->$parametro == $objetoJson->$parametro){
+                $JsonReturn = $value;
+                break;
+            }
+        }
+        return $JsonReturn;
+    }
 
-    function existeJsonNombresIguales($arrayJson, $json, $parametro){
+
+
+    function existeJsonNombresIguales($arrayObjetoJson, $objetoJson, $parametro){
         
         $Existe = 0;
         
-        foreach ($arrayJson as $key => $value) {
-            if(strtolower($value->$parametro) == strtolower($json->$parametro)){
+        foreach ($arrayObjetoJson as $key => $value) {
+            if(strtolower($value->$parametro) == strtolower($objetoJson->$parametro)){
                 $Existe++;
                 
             }
@@ -71,11 +105,11 @@ class Archivos{
     }
 
 
-    function existeProv($arrayJson, $parametro, $valor){
+    function existeProv($arrayObjetoJson, $parametro, $valor){
         
         $Existe = false;
         
-        foreach ($arrayJson as $key => $value) {
+        foreach ($arrayObjetoJson as $key => $value) {
             if($value->$parametro == $valor){
                 $Existe = true;
                 break;
@@ -83,6 +117,10 @@ class Archivos{
         }
         return $Existe;
     }
+
+
+    
+
 
 
 
@@ -96,7 +134,6 @@ class Archivos{
         }
 
         return $jsonArray;
-
     }
 
 
@@ -125,8 +162,7 @@ class Archivos{
             echo "No coincide con el tipo de archivo admitido: ".$tipoAdmitido."\n";
         }
         return $boolTipo;
-    }
-    
+    }    
 }
 
 ?>
