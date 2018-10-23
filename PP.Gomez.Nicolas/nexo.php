@@ -52,23 +52,29 @@ switch($opcion){
         break;
 
     case "listarPedidoProveedor":    
-    $archivoPedidos = new Archivos("./pedidos.txt");
-    if(isset($_GET['id']) ){
-        $idProv = $_GET['id'];
-        $pedido = new Pedido();        
-    }
-    $pedido->listarPedidoProveedor($archivoPedidos, $idProv);
-    break;
+        $archivoPedidos = new Archivos("./pedidos.txt");
+        if(isset($_GET['id']) ){
+            $idProv = $_GET['id'];
+            $pedido = new Pedido();        
+        }
+        $pedido->listarPedidoProveedor($archivoPedidos, $idProv);
+        break;
 
 
 //TERCERA PARTE:
     case "modificarProveedor":
-    $archivo = new Archivos("./proveedores.txt", $_FILES["foto"]);
-    if(isset($_POST['id']) && isset($_POST['nombre']) && isset($_POST['email']) && isset($_FILES['foto']) ){
-        $proveedor = new proveedor($_POST['id'],$_POST['nombre'], $_POST['email'], $_FILES['foto']);
-    }
-    echo $proveedor->modificarProveedor($archivo, $proveedor);
-    break;
+        $archivo = new Archivos("./proveedores.txt", $_FILES["foto"]);
+        if(isset($_POST['id']) && isset($_POST['nombre']) && isset($_POST['email']) && isset($_FILES['foto']) ){
+            $proveedor = new proveedor($_POST['id'],$_POST['nombre'], $_POST['email'], $_FILES['foto']);
+        }
+        echo $proveedor->modificarProveedor($archivo, $proveedor);
+        break;
+
+
+    case "fotosBack":
+        $proveedor = new Proveedor();
+        $proveedor->fotosBack();
+        break;
 
 }
 

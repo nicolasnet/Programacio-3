@@ -65,8 +65,9 @@ class Archivos{
 
 
     
-    function existeJson($arrayObjetoJson, $objetoJson, $parametro){
-        
+    function existeJson($objetoJson, $parametro){
+        $arrayObjetoJson = $this->arrayToJason($this->abrir());
+
         $boolExiste = false;
         
         foreach ($arrayObjetoJson as $key => $value) {
@@ -79,7 +80,8 @@ class Archivos{
     }
 
 
-    function getJson($arrayObjetoJson, $objetoJson, $parametro){
+    function getJson($objetoJson, $parametro){
+        $arrayObjetoJson = $this->arrayToJason($this->abrir());
         foreach ($arrayObjetoJson as $key => $value) {
             if($value->$parametro == $objetoJson->$parametro){
                 $JsonReturn = $value;
@@ -88,6 +90,22 @@ class Archivos{
         }
         return $JsonReturn;
     }
+
+
+
+    function getJsonByvalue($valor, $parametro){
+        $arrayObjetoJson = $this->arrayToJason($this->abrir());
+        
+        foreach ($arrayObjetoJson as $key => $value) {
+            if($value->$parametro == $valor){
+                $JsonReturn = $value;
+                break;
+            }
+        }
+        return $JsonReturn;
+    }
+
+
 
 
 

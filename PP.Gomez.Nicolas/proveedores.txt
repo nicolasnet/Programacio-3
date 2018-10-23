@@ -1,0 +1,4 @@
+{"id":"001","nombre":"Natasha","email":"nati@hotmail.com","foto":{"name":"IMG_20160723_151756215.jpg","type":"image\/jpeg","tmp_name":"C:\\xampp\\tmp\\phpD00D.tmp","error":0,"size":337492}}
+{"id":"002","nombre":"Pocho","email":"pochin@gmail.com","foto":{"name":"IMG_20160723_064101491.jpg","type":"image\/jpeg","tmp_name":"C:\\xampp\\tmp\\php5D98.tmp","error":0,"size":385014}}
+{"id":"003","nombre":"glaciar","email":"glaciar@hotmail.com","foto":{"name":"IMG_20160724_164032462.jpg","type":"image\/jpeg","tmp_name":"C:\\xampp\\tmp\\php5F8F.tmp","error":0,"size":885512}}
+{"id":"004","nombre":"aumento","email":"aumentoLupa@gmail.com","foto":{"name":"IMG_20160724_164629020.jpg","type":"image\/jpeg","tmp_name":"C:\\xampp\\tmp\\phpC851.tmp","error":0,"size":995791}}
