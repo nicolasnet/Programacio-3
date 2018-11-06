@@ -19,12 +19,22 @@ desarrollo para obtener información sobre los errores
   lo que hace que Slim se comporte de manera más predecible.
 */
 
+
+
+
+
 $app = new \Slim\App(["settings" => $config]);
+
+
+
 
 
 $app->group('/cd', function(){
 
-    $this->get('/{id}', \cdApi::class . ':traerUno');
+    $this->get('/', \cdApi::class.':traerTodos');
+    
+    $this->get('/uno', \cdApi::class.':TraerUno');
+    
 
 });
 
@@ -35,8 +45,12 @@ $app->group('/cd', function(){
 
 
 
+
+
+
 //EJEMPLO SIMPLE DE API REST
 /*
+$app = new \Slim\App(["settings" => $config]);
 
 $app->group('/saludar', function(){
 
@@ -78,3 +92,5 @@ MAS CODIGO AQUI...
 
 
 $app->run();
+
+?>

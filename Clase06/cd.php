@@ -22,10 +22,11 @@ class cd{
     }
 
 
-    function TraerTodos(){
+    public static function TraerTodos(){
 
         $pdo = AccesoDatos::dameUnObjetoAcceso();//al ser una funcion statica, no se instancia el objeto y se llama directamente con el nombre de la clase y ::
-        $sql = $pdo->RetornarConsulta('SELECT id, titel as titulo,interpret as cantante, jahr as año  FROM cds ');//uso la funcion de la clase desde el objeto de coneccio que me devolvio la clase
+        //$sql = $pdo->RetornarConsulta('SELECT id, titel as titulo,interpret as cantante, jahr as año  FROM cds ');//uso la funcion de la clase desde el objeto de coneccio que me devolvio la clase
+        $sql = $pdo->RetornarConsulta('SELECT *  FROM cds ');
         $sql->execute(); //este execute se usa ya que la clase AccesoDatos usa el prepare!!!!
 
         //$catidadFilas = $sql->rowCount();
@@ -36,7 +37,7 @@ class cd{
                 
         $arrayOBJJson = json_encode($resultado);
 
-        echo $arrayOBJJson;
+        return $arrayOBJJson;
 
     }
 
@@ -52,8 +53,10 @@ class cd{
 */
 
     public static function TraerUnCd($id){
+
         $pdo = AccesoDatos::dameUnObjetoAcceso();
-        $sql = $pdo->RetornarConsulta('SELECT id, titel as titulo,interpret as cantante, jahr as año  FROM cds where id = $id');
+        //$sql = $pdo->RetornarConsulta('SELECT id, titel as titulo,interpret as cantante, jahr as año  FROM cds where id = $id');
+        $sql = $pdo->RetornarConsulta('SELECT *  FROM cds where id = $id');
         $sql->execute(); 
         $cdBuscado = $sql->fetchObject('cd');
         return $cdBuscado;
