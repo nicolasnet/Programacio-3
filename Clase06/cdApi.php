@@ -23,6 +23,15 @@ class cdApi{
         return $losCd;
         
     }
+
+/*
+    public public function CargarUno($request, $response, $args)
+    {
+        $arrayDeParametros = $request->getParsedBody();
+
+        
+    }
+*/
 }
 
 

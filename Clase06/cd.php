@@ -42,12 +42,12 @@ class cd{
     }
 
 /*
-    function Guardar(){
+    function CargarUnCd($arrayDeParametros){
         $pdo = AccesoDatos::dameUnObjetoAcceso();
         $sql = $pdo->RetornarConsulta("INSERT into cd (titel, interpret, jahr) values (:titulo,:cantante,:añio)")
-        $sql->binddValue(':titulo', $this->titulo, PDO::PARAM_STR);
-        $sql->bindValue(':cantante', $this->cantante, PDO::PARAM_STR);
-        $sql->bindValue(':añio', $this->añio, PDO::PARAM_INT);        
+        $sql->binddValue(':titulo', $arrayDeParametros->titulo, PDO::PARAM_STR);
+        $sql->bindValue(':cantante', $arrayDeParametros->cantante, PDO::PARAM_STR);
+        $sql->bindValue(':añio', $arrayDeParametros->añio, PDO::PARAM_INT);        
         $sql->execute();
     }
 */

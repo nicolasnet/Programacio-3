@@ -2,8 +2,10 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+
 require_once './vendor/autoload.php';
 require_once './cdApi.php';
+require_once './loginApi.php';
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
@@ -20,26 +22,25 @@ desarrollo para obtener información sobre los errores
 */
 
 
-
-
-
 $app = new \Slim\App(["settings" => $config]);
 
 
 
 
-
+/*
 $app->group('/cd', function(){
 
     $this->get('/', \cdApi::class.':traerTodos');
     
     $this->get('/uno', \cdApi::class.':TraerUno');
+
+    $this->post('/', \cdApi::class.':CargarUno');
     
 
 });
+*/
 
-
-
+$app->post('/login', \loginApi::class. ':consulta');
 
 
 
