@@ -1,6 +1,6 @@
 <?php
 use \Firebase\JWT\JWT;
-require_once "./AccesoDatos.php";
+require_once "./clases/AccesoDatos.php";
 
 class login{
 

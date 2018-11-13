@@ -1,6 +1,7 @@
 <?php
-require_once './vendor/autoload.php';
-use firebase\JWT\JWT;
+require_once './composer/vendor/autoload.php';
+//require_once './vendor/firebase/php-jwt/src/JWT.php'; -->este creo q no sirve
+use Firebase\JWT\JWT;
 
 class AutJWT
 {

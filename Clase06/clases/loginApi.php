@@ -1,7 +1,7 @@
 <?php
-require_once './vendor/autoload.php';
-require_once './login.php';
-require_once './AutJWT.php';
+require_once './composer/vendor/autoload.php';
+require_once './clases/login.php';
+require_once './clases/AutJWT.php';
 
 class loginApi{
 

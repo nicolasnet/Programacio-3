@@ -3,9 +3,9 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 
-require_once './vendor/autoload.php';
-require_once './cdApi.php';
-require_once './loginApi.php';
+require_once './composer/vendor/autoload.php';
+require_once './clases/cdApi.php';
+require_once './clases/loginApi.php';
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
@@ -27,18 +27,20 @@ $app = new \Slim\App(["settings" => $config]);
 
 
 
-/*
+
 $app->group('/cd', function(){
 
     $this->get('/', \cdApi::class.':traerTodos');
     
-    $this->get('/uno', \cdApi::class.':TraerUno');
+    $this->get('/{id}', \cdApi::class.':TraerUno'); //PREGUNTAR xq no funciona pasando parametros por get
 
     $this->post('/', \cdApi::class.':CargarUno');
-    
 
+    $this->delete('/', \cdApi::class . ':BorrarUno');
+
+    $this->put('/', \cdApi::class . ':ModificarUno');
 });
-*/
+
 
 $app->post('/login', \loginApi::class. ':consulta');
 
