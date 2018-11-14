@@ -6,6 +6,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require_once './composer/vendor/autoload.php';
 require_once './clases/cdApi.php';
 require_once './clases/loginApi.php';
+require_once './clases/MWparaAutentificar.php';
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
@@ -39,7 +40,7 @@ $app->group('/cd', function(){
     $this->delete('/', \cdApi::class . ':BorrarUno');
 
     $this->put('/', \cdApi::class . ':ModificarUno');
-});
+})->add(\MWparaAutentificar::class . ':VerificarUsuario');
 
 
 $app->post('/login', \loginApi::class. ':consulta');
