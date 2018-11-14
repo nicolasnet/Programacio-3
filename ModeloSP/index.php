@@ -6,6 +6,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require_once './composer/vendor/autoload.php';
 require_once './clases/loginApi.php';
 require_once './clases/MWparaAutentificar.php';
+require_once './clases/compraApi.php';
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
@@ -24,17 +25,18 @@ desarrollo para obtener información sobre los errores
 
 $app = new \Slim\App(["settings" => $config]);
 
+$app->post('/login', \loginApi::class. ':consulta');
+
 $app->group('/usuario', function(){
     $this->get('/', \loginApi::class. ':traerTodos')->add(\MWparaAutentificar::class . ':VerificarPerfilUsuario');
     $this->post('/', \loginApi::class. ':nuevoLogin');
 });
 
-$app->post('/login', \loginApi::class. ':consulta');
+$app->group('/Compra', function(){
+    $this->post('/', \compraApi::class. ':nuevaCompra')->add(\MWparaAutentificar::class . ':VerificarJWT');
+    $this->get('/', \compraApi::class. 'consulta');
 
-
-
-
-
+});
 
 
 $app->run();
