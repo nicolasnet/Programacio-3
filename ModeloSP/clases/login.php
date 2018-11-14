@@ -4,8 +4,9 @@ require_once "./clases/AccesoDatos.php";
 
 class login{
 
-    public $user;
-    public $pass;
+    public $email;
+    public $clave;
+    public $perfil;
 
     public static function consultaLogin($arrayDeParametros){
         
@@ -31,11 +32,24 @@ class login{
             $sql->bindValue(':clave', $arrayDeParametros['clave'], PDO::PARAM_STR);
             $sql->bindValue(':perfil', $arrayDeParametros['perfil'], PDO::PARAM_STR);
             $sql->execute();            
-            return $pdo->RetornarUltimoIdInsertado();
+            return $sql->rowCount();
         }
         catch(Exception $e){
             return $e->getMessage();
         }
+    }
+
+
+
+    public static function TraerTodos(){
+        $pdo = AccesoDatos::dameUnObjetoAcceso();
+        $sql = $pdo->RetornarConsulta("select * from usuarios");
+        $sql->execute();
+
+        $resultado = $sql->fetchall(PDO::FETCH_CLASS, "login");       
+
+        return $resultado;
+
     }
 
 

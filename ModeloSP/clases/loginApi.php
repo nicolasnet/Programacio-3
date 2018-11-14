@@ -37,6 +37,13 @@ class loginApi{
         return $response->withJson($objDelaRespuesta, 200);
     }
 
+
+    public function traerTodos($request, $response, $args){
+        $usuarios = login::TraerTodos();
+        $newResponse = $response->withJson($usuarios, 200);
+        return $newResponse;        
+    }
+
 }
 
 

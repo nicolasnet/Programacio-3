@@ -24,8 +24,10 @@ desarrollo para obtener información sobre los errores
 
 $app = new \Slim\App(["settings" => $config]);
 
-
-$app->post('/usuario', \loginApi::class. ':nuevoLogin');
+$app->group('/usuario', function(){
+    $this->get('/', \loginApi::class. ':traerTodos')->add(\MWparaAutentificar::class . ':VerificarPerfilUsuario');
+    $this->post('/', \loginApi::class. ':nuevoLogin');
+});
 
 $app->post('/login', \loginApi::class. ':consulta');
 
