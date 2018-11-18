@@ -33,8 +33,9 @@ $app->group('/usuario', function(){
 });
 
 $app->group('/Compra', function(){
+    $this->get('/', \compraApi::class. ':traerTodos')->add(\MWparaAutentificar::class . ':VerificarPerfilUsuarioCompras');
     $this->post('/', \compraApi::class. ':nuevaCompra')->add(\MWparaAutentificar::class . ':VerificarJWT');
-    $this->get('/', \compraApi::class. 'consulta');
+    
 
 });
 

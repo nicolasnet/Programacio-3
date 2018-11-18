@@ -16,9 +16,7 @@ class loginApi{
         else
             $newResponse = $response->withJson("User no valido", 404);
 
-        return $newResponse;
-
-        
+        return $newResponse;       
         
     }
 
@@ -41,7 +39,7 @@ class loginApi{
     public function traerTodos($request, $response, $args){
         $usuarios = login::TraerTodos();
         $newResponse = $response->withJson($usuarios, 200);
-        return $newResponse;        
+        return $newResponse;
     }
 
 }

@@ -1,6 +1,8 @@
 <?php
 
 require_once './clases/AutJWT.php';
+require_once './clases/compraApi.php';
+
 class MWparaAutentificar
 {
  /**
@@ -116,7 +118,7 @@ class MWparaAutentificar
 		catch (Exception $e) {      
 			//guardar en un log
 			$objDelaRespuesta->excepcion=$e->getMessage();
-			$objDelaRespuesta->esValido=false;     
+			$objDelaRespuesta->esValido=false;
 		}
 
 		if($objDelaRespuesta->esValido)
@@ -163,7 +165,7 @@ class MWparaAutentificar
 		$token=$arrayConToken[0];			
 		
 		//var_dump($token);
-		$objDelaRespuesta->esValido=true; 
+		$objDelaRespuesta->esValido="";
 		try 
 		{				
 			AutJWT::VerificarToken($token);
@@ -176,10 +178,12 @@ class MWparaAutentificar
 		}
 
 		if($objDelaRespuesta->esValido)
-		{	   
+		{
+			
 			$payload=AutJWT::ObtenerData($token);
 			if($payload[0]->perfil=="admin")
 			{
+				$request->attributes->set("perfil", $payload[0]->perfil);
 				$response = $next($request, $response);
 			}		           	
 			else
@@ -204,5 +208,75 @@ class MWparaAutentificar
 		//$response->getBody()->write('<p>vuelvo del verificador de credenciales</p>');
 		return $response;   
    }
+
+
+
+
+
+
+
+
+
+
+
+   public function VerificarPerfilUsuarioCompras($request, $response, $next) {
+	$objDelaRespuesta= new stdclass();
+	$objDelaRespuesta->respuesta="";
+   
+	
+	 $arrayConToken = $request->getHeader('token');
+	 $token=$arrayConToken[0];
+	 
+	 //var_dump($token);
+	 $objDelaRespuesta->esValido="";
+	 try 
+	 {				
+		 AutJWT::VerificarToken($token);
+		 $objDelaRespuesta->esValido=true; 
+	 }
+	 catch (Exception $e) {      
+		 //guardar en un log
+		 $objDelaRespuesta->excepcion=$e->getMessage();
+		 $objDelaRespuesta->esValido=false;     
+	 }
+
+	 if($objDelaRespuesta->esValido)
+	 {		 
+		$payload=AutJWT::ObtenerData($token);
+			if($payload[0]->perfil=="admin")
+			{
+				$response = $next($request, $response);
+			}		           	
+			else
+			{	
+				$objDelaRespuesta->respuesta= compraApi:: traerUno($request, $response);
+			}		  
+	 }    
+	 else
+	 {
+		 //   $response->getBody()->write('<p>no tenes habilitado el ingreso</p>');
+		 $objDelaRespuesta->respuesta="Solo usuarios registrados";
+		 $objDelaRespuesta->elToken=$token;
+
+	 }  
+
+	if($objDelaRespuesta->respuesta!="")
+	{
+		$nueva=$response->withJson($objDelaRespuesta, 401);
+		return $nueva;
+	}
+	  
+	 //$response->getBody()->write('<p>vuelvo del verificador de credenciales</p>');
+	 return $response;   
+}
+
+
+
+
+
+
+
+
+
 
 }

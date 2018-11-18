@@ -61,6 +61,8 @@ class AutJWT
             self::$tipoEncriptacion
         );
     }
+
+
      public static function ObtenerData($token)
     {
         return JWT::decode(
@@ -69,6 +71,8 @@ class AutJWT
             self::$tipoEncriptacion
         )->data;
     }
+
+    
     private static function Aud()
     {
         $aud = '';
