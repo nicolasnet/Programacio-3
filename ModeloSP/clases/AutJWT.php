@@ -22,7 +22,7 @@ class AutJWT
             'exp' => $ahora + (3600),
             'aud' => self::Aud(),
             'data' => $datos,
-            'app'=> "API REST CD 2017"
+            'app'=> "API REST USUARIO 2018"
         );
         return JWT::encode($payload, self::$claveSecreta);
     }
@@ -72,7 +72,7 @@ class AutJWT
         )->data;
     }
 
-    
+
     private static function Aud()
     {
         $aud = '';

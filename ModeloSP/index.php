@@ -27,17 +27,26 @@ $app = new \Slim\App(["settings" => $config]);
 
 $app->post('/login', \loginApi::class. ':consulta');
 
-$app->group('/usuario', function(){
-    $this->get('/', \loginApi::class. ':traerTodos')->add(\MWparaAutentificar::class . ':VerificarPerfilUsuario');
-    $this->post('/', \loginApi::class. ':nuevoLogin');
-});
 
-$app->group('/Compra', function(){
-    $this->get('/', \compraApi::class. ':traerTodos')->add(\MWparaAutentificar::class . ':VerificarPerfilUsuarioCompras');
-    $this->post('/', \compraApi::class. ':nuevaCompra')->add(\MWparaAutentificar::class . ':VerificarJWT');
-    
+$app->group('', function () {
 
-});
+    $this->group('/usuario', function(){
+        $this->get('/', \loginApi::class. ':traerTodos')->add(\MWparaAutentificar::class . ':VerificarPerfilUsuario');
+        $this->post('/', \loginApi::class. ':nuevoLogin');
+    });
+
+    $this->group('/Compra', function(){
+        $this->get('/', \compraApi::class. ':traerTodos')->add(\MWparaAutentificar::class . ':VerificarPerfilUsuarioCompras');
+        $this->post('/', \compraApi::class. ':nuevaCompra')->add(\MWparaAutentificar::class . ':VerificarJWT');
+        $this->get('/marca', \compraApi::class. ':traerTodosMarca')->add(\MWparaAutentificar::class . ':VerificarPerfilUsuario');    
+
+    });
+
+    $this->group('/productos', function(){
+        $this->get('/', \compraApi::class. ':traerProductos');
+    });
+
+})->add(\MWparaAutentificar::class . ':GuardarUsuarioRuta');
 
 
 $app->run();

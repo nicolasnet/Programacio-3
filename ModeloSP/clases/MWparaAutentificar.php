@@ -183,7 +183,6 @@ class MWparaAutentificar
 			$payload=AutJWT::ObtenerData($token);
 			if($payload[0]->perfil=="admin")
 			{
-				$request->attributes->set("perfil", $payload[0]->perfil);
 				$response = $next($request, $response);
 			}		           	
 			else
@@ -269,6 +268,52 @@ class MWparaAutentificar
 	 //$response->getBody()->write('<p>vuelvo del verificador de credenciales</p>');
 	 return $response;   
 }
+
+
+   public function GuardarUsuarioRuta($request, $response, $next) {
+        $objDelaRespuesta= new stdclass();
+        $objDelaRespuesta->respuesta="";
+        
+        $usuario='';
+        $metodo='';
+        $ruta=''; 
+        $hora='';
+
+        if($request->isPost())
+        {
+            $metodo="post";
+        }
+        else
+        {
+            $metodo="get";
+        }
+
+		$uri=$request->getUri();
+		$ruta=$uri->getPath();
+
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        $hora = date("H:i:s");
+
+        $arrayConToken = $request->getHeader('token');
+        if(count($arrayConToken)>0)
+        {
+            $token=$arrayConToken[0];
+			$payload=AutJWT::ObtenerData($token);
+			$usuario = $payload[0]->email;
+        }
+        else
+        {
+            $usuario="Usuario no logueado";
+        }
+        
+        
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $consulta =$objetoAccesoDato->RetornarConsulta("insert into `datos`(`usuario`, `metodo`, `ruta`, `hora`) values ('$usuario', '$metodo', '$ruta', '$hora')");
+        $consulta->execute();
+		
+        $response = $next($request, $response);
+        return $response;
+    }
 
 
 
